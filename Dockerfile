@@ -7,12 +7,8 @@ RUN apk add git build-base ca-certificates
 WORKDIR /go/src/github.com/rarimo/bio-data-svc
 COPY . .
 
-RUN git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com".insteadOf https://gitlab.com
-RUN git config --global url."https://${CI_JOB_TOKEN}@github.com/".insteadOf https://github.com/
-RUN go env -w GOPRIVATE=github.com/*,gitlab.com/*
-
 RUN go mod tidy && go mod vendor
-RUN CGO_ENABLED=1 GO111MODULE=on GOOS=linux GOOS=linux go build -o /usr/local/bin/bio-data-svc /go/src/github.com/rarimo/bio-data-svc
+RUN GOOS=linux go build -o /usr/local/bin/bio-data-svc /go/src/github.com/rarimo/bio-data-svc
 
 FROM scratch
 COPY --from=alpine:3.9 /bin/sh /bin/sh
