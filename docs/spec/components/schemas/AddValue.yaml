@@ -1,0 +1,15 @@
+allOf:
+  - $ref: '#/components/schemas/ValueKey'
+  - type: object
+    x-go-is-request: true
+    required:
+      - attributes
+    properties:
+      attributes:
+        required:
+          - value
+        properties:
+          value:
+            type: string
+            description: Base64 encoded data value
+            example: aGVsbG8gd29ybGQ=
