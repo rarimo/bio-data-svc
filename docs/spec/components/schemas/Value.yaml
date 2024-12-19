@@ -1,0 +1,20 @@
+allOf:
+  - $ref: '#/components/schemas/ValueKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        required:
+          - key
+          - value
+        properties:
+          key:
+            type: string
+            format: uuid
+            description: Unique identifier for stored data
+            example: 550e8400-e29b-41d4-a716-446655440000
+          value:
+            type: string
+            description: Base64 encoded data value
+            example: aGVsbG8gd29ybGQ=

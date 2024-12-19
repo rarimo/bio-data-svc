@@ -1,0 +1,8 @@
+in: query
+name: filter[value]
+required: false
+description: |
+  Param to filter data by Base64 encoded value
+example: aGVsbG8gd29ybGQ=
+schema:
+  type: string
