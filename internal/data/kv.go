@@ -11,6 +11,6 @@ type KVQ interface {
 }
 
 type KV struct {
-	Key   string `db:"id" structs:"-"`
+	Key   string `db:"key" structs:"-"`
 	Value []byte `db:"value" structs:"value"`
 }
