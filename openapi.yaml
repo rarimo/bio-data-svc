@@ -6,8 +6,201 @@ info:
 servers:
   - url: 'https://api.demo.tokend.io'
     description: TokenD Developer Environment
+paths:
+  /integrations/bio-data-svc/value:
+    post:
+      tags:
+        - Values
+      summary: Add value
+      description: |
+        Insert new data in storage
+      operationId: AddData
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  $ref: '#/components/schemas/AddValue'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Value'
+        '400':
+          $ref: '#/components/responses/invalidParameter'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '500':
+          $ref: '#/components/responses/internalError'
+    get:
+      tags:
+        - Values
+      summary: Get value
+      description: |
+        Get value from storage. If no filter query specified any row is returned.
+      operationId: GetData
+      parameters:
+        - $ref: '#/components/parameters/DataKeyParam'
+        - $ref: '#/components/parameters/DataValueParam'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Value'
+        '400':
+          $ref: '#/components/responses/invalidParameter'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '500':
+          $ref: '#/components/responses/internalError'
 components:
+  schemas:
+    AddValue:
+      allOf:
+        - $ref: '#/components/schemas/ValueKey'
+        - type: object
+          x-go-is-request: true
+          required:
+            - attributes
+          properties:
+            attributes:
+              required:
+                - value
+              properties:
+                value:
+                  type: string
+                  description: Base64 encoded data value
+                  example: aGVsbG8gd29ybGQ=
+    Errors:
+      description: 'Standard JSON:API error'
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          description: Non empty array of errors occurred during request processing
+          items:
+            type: object
+            required:
+              - title
+              - status
+            properties:
+              title:
+                type: string
+                description: 'Title is a short, human-readable summary of the problem'
+                example: Bad Request
+              detail:
+                type: string
+                description: Detail is a human-readable explanation specific to this occurrence of the problem
+                example: Request body was expected
+              status:
+                type: integer
+                description: Status is the HTTP status code applicable to this problem
+                example: 400
+                enum:
+                  - 400
+                  - 401
+                  - 403
+                  - 404
+                  - 409
+                  - 500
+    Value:
+      allOf:
+        - $ref: '#/components/schemas/ValueKey'
+        - type: object
+          required:
+            - attributes
+          properties:
+            attributes:
+              required:
+                - key
+                - value
+              properties:
+                key:
+                  type: string
+                  description: Unique identifier for stored data
+                  example: 550e8400-e29b-41d4-a716-446655440000
+                value:
+                  type: string
+                  description: Base64 encoded data value
+                  example: aGVsbG8gd29ybGQ=
+    ValueKey:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          description: value identifier
+        type:
+          type: string
+          enum:
+            - value
+  responses:
+    internalError:
+      description: Internal server error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    invalidParameter:
+      description: One of the parameters is invalid. Refer to the response body for details.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    notFound:
+      description: Requested resource does not exist.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: You must provide a valid signature.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   parameters:
+    DataKeyParam:
+      in: query
+      name: 'filter[key]'
+      required: false
+      description: |
+        Param to filter values by uuid key
+      example: 550e8400-e29b-41d4-a716-446655440000
+      schema:
+        type: string
+    DataValueParam:
+      in: query
+      name: 'filter[value]'
+      required: false
+      description: |
+        Param to filter data by Base64 encoded value
+      example: aGVsbG8gd29ybGQ=
+      schema:
+        type: string
     pageLimitParam:
       in: query
       name: 'page[limit]'
