@@ -2,8 +2,7 @@ in: query
 name: filter[key]
 required: false
 description: |
-  Param to filter values by key
+  Param to filter values by uuid key
 example: 550e8400-e29b-41d4-a716-446655440000
 schema:
   type: string
-  format: uuid
