@@ -73,7 +73,7 @@
           "Values"
         ],
         "summary": "Get value",
-        "description": "Get value from storage. If no filter query specified any row is returned.\n",
+        "description": "Get value from storage. If no filter query specified any row is returned.   \nWhen filtering by value, service queries not by exact match, but searching for the nearest by \nhammming distance element. Also take into account that value is Base64 encoded, so may contain \nsome escape symbol that should be encoded.\n",
         "operationId": "GetData",
         "parameters": [
           {
