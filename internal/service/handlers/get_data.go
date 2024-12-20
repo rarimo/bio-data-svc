@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"encoding/base64"
 	"net/http"
 
+	"github.com/rarimo/bio-data-svc/internal/data"
+	"github.com/rarimo/bio-data-svc/internal/data/pg"
 	"github.com/rarimo/bio-data-svc/internal/service/requests"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
@@ -24,14 +25,9 @@ func GetData(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if req.Value != nil {
-		value, err := base64.StdEncoding.DecodeString(*req.Value)
-		if err != nil {
-			Log(r).WithError(err).WithField("value", *req.Value).Error("failed to decode base64 string")
-			ape.RenderErr(w, problems.InternalError())
-			return
-		}
-
-		kvQuery = kvQuery.FilterByValue(value)
+		kvQuery = kvQuery.
+			FilterByBase64ValueLength(*req.Value).
+			OrderBy(pg.HammingDistanceBase64(*req.Value), data.OrderDesc)
 	}
 
 	kv, err := kvQuery.Get()

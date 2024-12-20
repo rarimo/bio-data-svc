@@ -47,12 +47,22 @@ func (q kvQ) Insert(data data.KV) error {
 	return q.db.Exec(sq.Insert(kvTableName).SetMap(structs.Map(data)))
 }
 
-func (q kvQ) FilterByKey(key ...string) data.KVQ {
+func (q kvQ) FilterByKey(key string) data.KVQ {
 	return q.withFilters(sq.Eq{"key": key})
 }
 
-func (q kvQ) FilterByValue(value ...[]byte) data.KVQ {
+func (q kvQ) FilterByValue(value []byte) data.KVQ {
 	return q.withFilters(sq.Eq{"value": value})
+}
+
+func (q kvQ) FilterByBase64ValueLength(value string) data.KVQ {
+	return q.withFilters(sq.Expr("LENGTH(value) = LENGTH(DECODE(?, 'base64'))", value))
+}
+
+func (q kvQ) OrderBy(expr interface{}, order data.OrderType) data.KVQ {
+	q.selector = q.selector.OrderByClause(expr, string(order))
+
+	return q
 }
 
 func (q kvQ) withFilters(stmt interface{}) data.KVQ {
@@ -61,4 +71,8 @@ func (q kvQ) withFilters(stmt interface{}) data.KVQ {
 	q.deleter = q.deleter.Where(stmt)
 
 	return q
+}
+
+func HammingDistanceBase64(value string) interface{} {
+	return sq.Expr("hamming_distance(value, DECODE(?, 'base64'))", value)
 }
