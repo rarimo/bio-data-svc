@@ -34,6 +34,36 @@ post:
       $ref: '#/components/responses/notFound'
     500:
       $ref: '#/components/responses/internalError'
+delete:
+  tags:
+    - Values
+  summary: Delete value
+  description: |
+    Delete value from storage. If no filter query specified nothing is delete, because one of filters is required.   
+    When filtering by value, service queries by exact match and if any value found deletes it.  
+    Also take into account that value is Base64 encoded, so may contain some escape symbol that should be encoded.
+  operationId: GetData
+  parameters:
+    - $ref: '#/components/parameters/DataKeyParam'
+    - $ref: '#/components/parameters/DataValueParam'
+  responses:
+    200:
+      description: Success
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Value'
+    400:
+      $ref: '#/components/responses/invalidParameter'
+    404:
+      $ref: '#/components/responses/notFound'
+    500:
+      $ref: '#/components/responses/internalError'
 get:
   tags:
     - Values

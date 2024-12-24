@@ -4,7 +4,7 @@ import (
 	"context"
 	"net"
 
-	"github.com/rarimo/bio-data-svc/internal/config"
+	"github.com/rarimo/zk-biometrics-svc/internal/config"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/kit/copus/types"
 	"gitlab.com/distributed_lab/logan/v3"

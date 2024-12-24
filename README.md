@@ -1,4 +1,4 @@
-# bio-data-svc
+# zk-biometrics-svc
 
 ## Description
 
@@ -7,8 +7,8 @@
 ## Install
 
   ```
-  git clone github.com/rarimo/bio-data-svc
-  cd bio-data-svc
+  git clone github.com/rarimo/zk-biometrics-svc
+  cd zk-biometrics-svc
   go build main.go
   export KV_VIPER_FILE=./config.yaml
   ./main migrate up
@@ -41,8 +41,8 @@ Make sure that docker installed.
 use `docker run ` with `-p 8080:80` to expose port 80 to 8080
 
   ```
-  docker build -t github.com/rarimo/bio-data-svc .
-  docker run -e KV_VIPER_FILE=/config.yaml github.com/rarimo/bio-data-svc
+  docker build -t github.com/rarimo/zk-biometrics-svc .
+  docker run -e KV_VIPER_FILE=/config.yaml github.com/rarimo/zk-biometrics-svc
   ```
 
 ## Running from Source

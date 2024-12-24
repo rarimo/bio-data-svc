@@ -6,7 +6,7 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/fatih/structs"
-	"github.com/rarimo/bio-data-svc/internal/data"
+	"github.com/rarimo/zk-biometrics-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 )
 
@@ -45,6 +45,10 @@ func (q kvQ) Get() (*data.KV, error) {
 
 func (q kvQ) Insert(data data.KV) error {
 	return q.db.Exec(sq.Insert(kvTableName).SetMap(structs.Map(data)))
+}
+
+func (q kvQ) Delete() error {
+	return q.db.Exec(q.deleter)
 }
 
 func (q kvQ) FilterByKey(key string) data.KVQ {

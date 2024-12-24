@@ -14,6 +14,7 @@ type KVQ interface {
 
 	Get() (*KV, error)
 	Insert(data KV) error
+	Delete() error
 
 	FilterByKey(key string) KVQ
 	FilterByValue(value []byte) KVQ
@@ -23,6 +24,6 @@ type KVQ interface {
 }
 
 type KV struct {
-	Key   string `db:"key" structs:"-"`
+	Key   string `db:"key" structs:"key"`
 	Value []byte `db:"value" structs:"value"`
 }

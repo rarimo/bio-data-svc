@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/rarimo/bio-data-svc/internal/data"
+	"github.com/rarimo/zk-biometrics-svc/internal/data"
 	"gitlab.com/distributed_lab/logan/v3"
 )
 

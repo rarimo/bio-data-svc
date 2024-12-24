@@ -1,17 +1,16 @@
 package handlers
 
 import (
+	"encoding/base64"
 	"net/http"
 
-	"github.com/rarimo/zk-biometrics-svc/internal/data"
-	"github.com/rarimo/zk-biometrics-svc/internal/data/pg"
 	"github.com/rarimo/zk-biometrics-svc/internal/service/requests"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 )
 
-func GetData(w http.ResponseWriter, r *http.Request) {
-	req, err := requests.NewGetDataRequest(r)
+func DeleteData(w http.ResponseWriter, r *http.Request) {
+	req, err := requests.NewDeleteDataRequest(r)
 	if err != nil {
 		Log(r).WithError(err).Error("invalid request")
 		ape.RenderErr(w, problems.BadRequest(err)...)
@@ -25,9 +24,14 @@ func GetData(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if req.Value != nil {
-		kvQuery = kvQuery.
-			FilterByBase64ValueLength(*req.Value).
-			OrderBy(pg.HammingDistanceBase64(*req.Value), data.OrderDesc)
+		value, err := base64.StdEncoding.DecodeString(*req.Value)
+		if err != nil {
+			Log(r).WithError(err).WithField("value", *req.Value).Error("failed to decode Base64 string")
+			ape.RenderErr(w, problems.InternalError())
+			return
+		}
+
+		kvQuery = kvQuery.FilterByValue(value)
 	}
 
 	kv, err := kvQuery.Get()
@@ -43,5 +47,11 @@ func GetData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ape.Render(w, newKVResponse(*kv))
+	if err = kvQuery.Delete(); err != nil {
+		Log(r).WithError(err).Error("failed to delete key-value")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
