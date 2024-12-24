@@ -59,7 +59,7 @@ func (q kvQ) FilterByBase64ValueLength(value string) data.KVQ {
 	return q.withFilters(sq.Expr("LENGTH(value) = LENGTH(DECODE(?, 'base64'))", value))
 }
 
-func (q kvQ) OrderBy(expr interface{}, order data.OrderType) data.KVQ {
+func (q kvQ) OrderBy(expr sq.Sqlizer, order data.OrderType) data.KVQ {
 	q.selector = q.selector.OrderByClause(expr, string(order))
 
 	return q
@@ -73,6 +73,6 @@ func (q kvQ) withFilters(stmt interface{}) data.KVQ {
 	return q
 }
 
-func HammingDistanceBase64(value string) interface{} {
+func HammingDistanceBase64(value string) sq.Sqlizer {
 	return sq.Expr("hamming_distance(value, DECODE(?, 'base64'))", value)
 }

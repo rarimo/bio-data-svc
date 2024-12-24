@@ -1,5 +1,7 @@
 package data
 
+import sq "github.com/Masterminds/squirrel"
+
 type OrderType string
 
 const (
@@ -17,7 +19,7 @@ type KVQ interface {
 	FilterByValue(value []byte) KVQ
 	FilterByBase64ValueLength(value string) KVQ
 
-	OrderBy(expr interface{}, order OrderType) KVQ
+	OrderBy(expr sq.Sqlizer, order OrderType) KVQ
 }
 
 type KV struct {
