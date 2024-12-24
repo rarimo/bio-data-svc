@@ -39,7 +39,10 @@ get:
     - Values
   summary: Get value
   description: |
-    Get value from storage. If no filter query specified any row is returned.
+    Get value from storage. If no filter query specified any row is returned.   
+    When filtering by value, service queries not by exact match, but searching for the nearest by 
+    hammming distance element. Also take into account that value is Base64 encoded, so may contain 
+    some escape symbol that should be encoded.
   operationId: GetData
   parameters:
     - $ref: '#/components/parameters/DataKeyParam'
