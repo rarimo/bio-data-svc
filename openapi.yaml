@@ -1,13 +1,13 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: bio-data-svc
+  title: zk-biometrics-svc
   description: ''
 servers:
   - url: 'https://api.demo.tokend.io'
     description: TokenD Developer Environment
 paths:
-  /integrations/bio-data-svc/value:
+  /integrations/zk-biometrics-svc/value:
     post:
       tags:
         - Values
@@ -50,7 +50,7 @@ paths:
       summary: Delete value
       description: |
         Delete value from storage. If no filter query specified nothing is delete, because one of filters is required.   
-        When filtering by value, service queries not by exact match and if any value found deletes it.  
+        When filtering by value, service queries by exact match and if any value found deletes it.  
         Also take into account that value is Base64 encoded, so may contain some escape symbol that should be encoded.
       operationId: GetData
       parameters:
