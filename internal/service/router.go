@@ -20,6 +20,7 @@ func (s *service) router() chi.Router {
 	)
 	r.Route("/integrations/bio-data-svc", func(r chi.Router) {
 		r.Route("/value", func(r chi.Router) {
+			r.Delete("/", handlers.DeleteData)
 			r.Post("/", handlers.AddData)
 			r.Get("/", handlers.GetData)
 		})
