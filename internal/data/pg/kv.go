@@ -6,7 +6,7 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/fatih/structs"
-	"github.com/rarimo/bio-data-svc/internal/data"
+	"github.com/rarimo/zk-biometrics-svc/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 )
 

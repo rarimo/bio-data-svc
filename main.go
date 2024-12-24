@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/rarimo/bio-data-svc/internal/cli"
+	"github.com/rarimo/zk-biometrics-svc/internal/cli"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"github.com/rarimo/bio-data-svc/internal/assets"
-	"github.com/rarimo/bio-data-svc/internal/config"
+	"github.com/rarimo/zk-biometrics-svc/internal/assets"
+	"github.com/rarimo/zk-biometrics-svc/internal/config"
 	migrate "github.com/rubenv/sql-migrate"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )

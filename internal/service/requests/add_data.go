@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-ozzo/ozzo-validation/is"
 	val "github.com/go-ozzo/ozzo-validation/v4"
-	"github.com/rarimo/bio-data-svc/resources"
+	"github.com/rarimo/zk-biometrics-svc/resources"
 )
 
 func AddData(r *http.Request) (req resources.AddValueRequest, err error) {

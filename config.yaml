@@ -12,5 +12,5 @@ cop:
   disabled: true
   endpoint: "http://..."
   upstream: "http://..."
-  service_name: bio-data-svc
+  service_name: zk-biometrics-svc
   service_port: 80

@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/rarimo/bio-data-svc/internal/data"
-	"github.com/rarimo/bio-data-svc/internal/service/requests"
-	"github.com/rarimo/bio-data-svc/resources"
+	"github.com/rarimo/zk-biometrics-svc/internal/data"
+	"github.com/rarimo/zk-biometrics-svc/internal/service/requests"
+	"github.com/rarimo/zk-biometrics-svc/resources"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 )

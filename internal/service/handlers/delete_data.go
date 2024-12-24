@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"net/http"
 
-	"github.com/rarimo/bio-data-svc/internal/service/requests"
+	"github.com/rarimo/zk-biometrics-svc/internal/service/requests"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 )

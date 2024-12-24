@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/alecthomas/kingpin"
-	"github.com/rarimo/bio-data-svc/internal/config"
-	"github.com/rarimo/bio-data-svc/internal/service"
+	"github.com/rarimo/zk-biometrics-svc/internal/config"
+	"github.com/rarimo/zk-biometrics-svc/internal/service"
 	"gitlab.com/distributed_lab/kit/kv"
 	"gitlab.com/distributed_lab/logan/v3"
 )
@@ -22,7 +22,7 @@ func Run(args []string) bool {
 	cfg := config.New(kv.MustFromEnv())
 	log = cfg.Log()
 
-	app := kingpin.New("bio-data-svc", "")
+	app := kingpin.New("zk-biometrics-svc", "")
 
 	runCmd := app.Command("run", "run command")
 	serviceCmd := runCmd.Command("service", "run service") // you can insert custom help

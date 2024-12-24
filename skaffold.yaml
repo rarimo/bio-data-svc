@@ -2,7 +2,7 @@ apiVersion: skaffold/v2beta28
 kind: Config
 build:
   artifacts:
-    - image: bio-data-svc # Change it on your own repo-name
+    - image: zk-biometrics-svc # Change it on your own repo-name
       docker:
         buildArgs:
           CI_JOB_TOKEN: "{{.CI_JOB_TOKEN}}"
@@ -12,22 +12,22 @@ build:
 #  deploy:
 #   helm:
 #     releases:
-#       - name: bio-data-svc # Change it on your own repo-name
+#       - name: zk-biometrics-svc # Change it on your own repo-name
 #         setValueTemplates:
 #           image.repository: "{{.IMAGE_REPO_verificator_svc}}" # Change <backend> on your own repo-name
 #           image.tag: "{{.IMAGE_TAG_verificator_svc}}" # Change <backend> on your own repo-name
 #         namespace: dev # Change it on your own namespace
 #         createNamespace: true
-#         chartPath: ./bio-data-svc-chart # Change it on your own path to helm chart
+#         chartPath: ./zk-biometrics-svc-chart # Change it on your own path to helm chart
 #         valuesFiles:
-#           - ./bio-data-svc-chart/values.yaml # Change it on your own path to helm chart values.yaml file
+#           - ./zk-biometrics-svc-chart/values.yaml # Change it on your own path to helm chart values.yaml file
 #         skipBuildDependencies: true
 #     flags:
 #       upgrade:
 #         - -i
 #  portForward:
 #   - resourceType: deployment
-#     resourceName: bio-data-svc # Change it on your own name in Chart.yaml
+#     resourceName: zk-biometrics-svc # Change it on your own name in Chart.yaml
 #     port: 8000
 #     localPort: 8000
 

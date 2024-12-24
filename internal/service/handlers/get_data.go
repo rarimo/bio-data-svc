@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/rarimo/bio-data-svc/internal/data"
-	"github.com/rarimo/bio-data-svc/internal/data/pg"
-	"github.com/rarimo/bio-data-svc/internal/service/requests"
+	"github.com/rarimo/zk-biometrics-svc/internal/data"
+	"github.com/rarimo/zk-biometrics-svc/internal/data/pg"
+	"github.com/rarimo/zk-biometrics-svc/internal/service/requests"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 )

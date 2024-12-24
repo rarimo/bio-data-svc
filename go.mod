@@ -1,4 +1,4 @@
-module github.com/rarimo/bio-data-svc
+module github.com/rarimo/zk-biometrics-svc
 
 go 1.23.3
 
