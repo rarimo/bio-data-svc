@@ -40,7 +40,7 @@ delete:
   summary: Delete value
   description: |
     Delete value from storage. If no filter query specified nothing is delete, because one of filters is required.   
-    When filtering by value, service queries not by exact match and if any value found deletes it.  
+    When filtering by value, service queries by exact match and if any value found deletes it.  
     Also take into account that value is Base64 encoded, so may contain some escape symbol that should be encoded.
   operationId: GetData
   parameters:
