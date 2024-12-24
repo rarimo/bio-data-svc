@@ -14,6 +14,7 @@ type KVQ interface {
 
 	Get() (*KV, error)
 	Insert(data KV) error
+	Delete() error
 
 	FilterByKey(key string) KVQ
 	FilterByValue(value []byte) KVQ

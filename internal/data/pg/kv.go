@@ -47,6 +47,10 @@ func (q kvQ) Insert(data data.KV) error {
 	return q.db.Exec(sq.Insert(kvTableName).SetMap(structs.Map(data)))
 }
 
+func (q kvQ) Delete() error {
+	return q.db.Exec(q.deleter)
+}
+
 func (q kvQ) FilterByKey(key string) data.KVQ {
 	return q.withFilters(sq.Eq{"key": key})
 }
